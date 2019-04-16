@@ -10,9 +10,9 @@ def main():
 
 	dist_array = create_dist_array(nodes)
 
-	optimal_cycle, dist = find_optimal_cycle(dist_array)
+	optimal_cycle, total_dist = find_optimal_cycle(dist_array)
 
-	write_to_file(output_filename, optimal_cycle, dist)
+	write_to_file(output_filename, optimal_cycle, total_dist)
 
 
 # input_filename is the name of the file containing the node info
@@ -54,17 +54,19 @@ def find_optimal_cycle(dist_array):
 	visited_nodes = []
 	for node in dist_array:
 		for i in range(1, len(node)):
-			if node.index(sorted(node)[i]) not in visited_nodes:
-				visited_nodes += [node.index(sorted(node)[i])]
+			if str(node.index(sorted(node)[i]) + 1) not in visited_nodes:
+				visited_nodes += [str(node.index(sorted(node)[i]) + 1)]
 
-	dist = 0
+	# make the list a cycle by appending first node to end
+	visited_nodes += [visited_nodes[0]]
+
+	total_dist = 0
 	for i in range(len(visited_nodes) - 1):
-		dist += dist_array[i][i + 1]
+		first = visited_nodes[i]
+		second = visited_nodes[i + 1]
+		total_dist += dist_array[int(first) - 1][int(second) - 1]
 
-	# increment by 1 to translate from index -> node ID
-	visited_nodes = [str(x + 1) for x in visited_nodes]
-	visited_nodes += visited_nodes[0]
-	return visited_nodes, dist
+	return visited_nodes, total_dist
 
 
 # params are self-explanatory lol
