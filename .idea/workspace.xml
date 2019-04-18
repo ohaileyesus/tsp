@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ec83162-8cb1-4734-8074-2652d22426e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mat-test_out.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mat-test_out.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsp-3510.py" beforeDir="false" afterPath="$PROJECT_DIR$/tsp-3510.py" afterDir="false" />
-    </list>
+    <list default="true" id="9ec83162-8cb1-4734-8074-2652d22426e2" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,13 +48,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tsp-3510.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="128" column="45" selection-start-line="128" selection-start-column="45" selection-end-line="128" selection-end-column="45" />
+            <state relative-caret-position="-615">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1555545737500" expanded="true" signature="70:71" ph="..." />
-                <marker date="1555545737500" expanded="true" signature="70:4503" ph="..." />
-                <marker date="1555545737500" expanded="true" signature="2066:2240" ph="..." />
+                <marker date="1555560124966" expanded="true" signature="70:71" ph="..." />
+                <marker date="1555560124966" expanded="true" signature="70:4502" ph="..." />
+                <marker date="1555560124966" expanded="true" signature="2066:2240" ph="..." />
               </folding>
             </state>
           </provider>
@@ -165,13 +161,13 @@
     <entry file="file://$PROJECT_DIR$/distchecker.py" />
     <entry file="file://$PROJECT_DIR$/tsp-3510.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="128" column="45" selection-start-line="128" selection-start-column="45" selection-end-line="128" selection-end-column="45" />
+        <state relative-caret-position="-615">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1555545737500" expanded="true" signature="70:71" ph="..." />
-            <marker date="1555545737500" expanded="true" signature="70:4503" ph="..." />
-            <marker date="1555545737500" expanded="true" signature="2066:2240" ph="..." />
+            <marker date="1555560124966" expanded="true" signature="70:71" ph="..." />
+            <marker date="1555560124966" expanded="true" signature="70:4502" ph="..." />
+            <marker date="1555560124966" expanded="true" signature="2066:2240" ph="..." />
           </folding>
         </state>
       </provider>

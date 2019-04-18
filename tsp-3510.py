@@ -74,7 +74,7 @@ def find_optimal_cycle(dist_array):
 	return visited_nodes, total_dist
 
 
-# distance calculator
+# calculates round trip distance of the given cycle
 def calculate_dist(cycle, dist_array):
 	total_dist = 0
 	for i in range(len(cycle) - 1):
@@ -84,12 +84,13 @@ def calculate_dist(cycle, dist_array):
 	return total_dist
 
 
-# takes in the initial cycle and dist and tries to optimize
+# optimizes the given initial_cycle
 def optimize(initial_cycle, init_dist, dist_array):
 	curr_dist = init_dist
 	curr_cycle = initial_cycle[0:len(initial_cycle) - 1]
 	start = datetime.datetime.now()
 
+	# 2-opt
 	# for i in range(len(curr_cycle)):
 	# 	for j in range(len(curr_cycle)):
 	# 		new_cycle = curr_cycle
@@ -103,6 +104,7 @@ def optimize(initial_cycle, init_dist, dist_array):
 	# 			curr_cycle = new_cycle
 	# 			curr_dist = new_dist
 	#
+	# 3-opt
 	# for i in range(len(curr_cycle)):
 	# 	for j in range(len(curr_cycle)):
 	# 		for k in range(len(curr_cycle)):
@@ -117,7 +119,8 @@ def optimize(initial_cycle, init_dist, dist_array):
 	# 					if new_dist < curr_dist:
 	# 						curr_cycle = new_cycle
 	# 						curr_dist = new_dist
-
+	#
+	# 4-opt
 	for i in range(len(curr_cycle)):
 		for j in range(len(curr_cycle)):
 			for k in range(len(curr_cycle)):
@@ -137,6 +140,7 @@ def optimize(initial_cycle, init_dist, dist_array):
 								curr_cycle = new_cycle
 								curr_dist = new_dist
 							# print(curr_dist)
+
 	print(datetime.datetime.now() - start)
 	print(curr_dist)
 	return curr_cycle, curr_dist
