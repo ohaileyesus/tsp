@@ -1,5 +1,8 @@
 import sys
 import numpy
+import itertools
+import datetime
+
 
 def main():
 	input_filename = sys.argv[1]
@@ -10,9 +13,11 @@ def main():
 
 	dist_array = create_dist_array(nodes)
 
-	optimal_cycle, total_dist = find_optimal_cycle(dist_array)
+	initial_cycle, init_dist = find_optimal_cycle(dist_array)
 
-	write_to_file(output_filename, optimal_cycle, total_dist)
+	final_cycle, final_dist = optimize(initial_cycle, init_dist, dist_array)
+
+	write_to_file(output_filename, final_cycle, final_dist)
 
 
 # input_filename is the name of the file containing the node info
@@ -67,6 +72,74 @@ def find_optimal_cycle(dist_array):
 		total_dist += dist_array[int(first) - 1][int(second) - 1]
 
 	return visited_nodes, total_dist
+
+
+# distance calculator
+def calculate_dist(cycle, dist_array):
+	total_dist = 0
+	for i in range(len(cycle) - 1):
+		first = cycle[i]
+		second = cycle[i + 1]
+		total_dist += dist_array[int(first) - 1][int(second) - 1]
+	return total_dist
+
+
+# takes in the initial cycle and dist and tries to optimize
+def optimize(initial_cycle, init_dist, dist_array):
+	curr_dist = init_dist
+	curr_cycle = initial_cycle[0:len(initial_cycle) - 1]
+	start = datetime.datetime.now()
+
+	# for i in range(len(curr_cycle)):
+	# 	for j in range(len(curr_cycle)):
+	# 		new_cycle = curr_cycle
+	#
+	# 		temp = new_cycle[i]
+	# 		new_cycle[i] = new_cycle[j]
+	# 		new_cycle[j] = temp
+	#
+	# 		new_dist = calculate_dist(new_cycle, dist_array)
+	# 		if new_dist < curr_dist:
+	# 			curr_cycle = new_cycle
+	# 			curr_dist = new_dist
+	#
+	# for i in range(len(curr_cycle)):
+	# 	for j in range(len(curr_cycle)):
+	# 		for k in range(len(curr_cycle)):
+	# 			new_cycle = curr_cycle
+	# 			if i is not j and j is not k and i is not k:
+	# 				for triplet in list(itertools.permutations([new_cycle[i], new_cycle[j], new_cycle[k]])):
+	# 					new_cycle[i] = triplet[0]
+	# 					new_cycle[j] = triplet[1]
+	# 					new_cycle[k] = triplet[2]
+	#
+	# 					new_dist = calculate_dist(new_cycle, dist_array)
+	# 					if new_dist < curr_dist:
+	# 						curr_cycle = new_cycle
+	# 						curr_dist = new_dist
+
+	for i in range(len(curr_cycle)):
+		for j in range(len(curr_cycle)):
+			for k in range(len(curr_cycle)):
+				for l in range(len(curr_cycle)):
+					new_cycle = curr_cycle
+					if i is not j and i is not k and i is not l and j is not k and j is not l and k is not l:
+						for quad in list(itertools.permutations([new_cycle[i], new_cycle[j], new_cycle[k], new_cycle[l]])):
+							if curr_dist < 28000: break
+
+							new_cycle[i] = quad[0]
+							new_cycle[j] = quad[1]
+							new_cycle[k] = quad[2]
+							new_cycle[l] = quad[3]
+
+							new_dist = calculate_dist(new_cycle, dist_array)
+							if new_dist < curr_dist:
+								curr_cycle = new_cycle
+								curr_dist = new_dist
+							# print(curr_dist)
+	print(datetime.datetime.now() - start)
+	print(curr_dist)
+	return curr_cycle, curr_dist
 
 
 # params are self-explanatory lol
