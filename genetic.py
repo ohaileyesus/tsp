@@ -5,24 +5,10 @@ import operator
 import pandas
 import time
 
-def main():
-	input_filename = sys.argv[1]
-	output_filename = sys.argv[2]
-	target_time = sys.argv[3]
-
-	nodes = create_node_list(input_filename)
-	cityList = []
-	for node in nodes:
-		cit = City(node[1], node[2], node[0])
-		cityList.append(cit)
-	bestroute, initialdistance, finaldistance = geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, generations=1000)
-	write_to_file(output_filename, bestroute, initialdistance, finaldistance)
-
 class City:
-    def __init__(self, x, y, idnum) :
-        self.x = x
-        self.y = y
-        self.id = idnum
+    def __init__(self, x, y) :
+        self.x = x;
+        self.y = y;
 
     def calc_distance(self, city) :
         distancex = abs(self.x - city.x)
@@ -54,20 +40,34 @@ class Heuristic:
 			self.heuristic = 1 / float(self.pathDistance())
 		return self.heuristic
 
+def main():
+	input_filename = sys.argv[1]
+	output_filename = sys.argv[2]
+	target_time = sys.argv[3]
+	start_time = time.time()
+
+	nodes = create_node_list(input_filename)
+	cityList = []
+	for node in nodes:
+		cit = City(node[1], node[2])
+		cityList.append(cit)
+	bestroute, initialdistance, finaldistance = geneticAlgorithm(population=cityList, popSize=100, eliteSize=20, mutationRate=0.01, start_time=start_time, target_time=target_time)
+	write_to_file(output_filename, bestroute, initialdistance, finaldistance)
+
 
 def write_to_file(output_filename, bestroute, initial, final):
 	# open file for reading
 	try:
 		fh = open(output_filename, 'r')
-		for city in bestroute:
-			fh.write(str(city.id) + ' ')
-		fh.write('\n' + str(final) + '\n')
+		fh.write(str(bestroute) + '\n')
+		fh.write(str(initial) + '\n')
+		fh.write(str(final) + '\n')
 	except:
 		# if file does not exist, create it
 		fh = open(output_filename, 'w')
-		for city in bestroute:
-			fh.write(str(city.id) + ' ')
-		fh.write('\n' + str(final) + '\n')
+		fh.write(str(bestroute) + '\n')
+		fh.write(str(initial) + '\n')
+		fh.write(str(final) + '\n')
 
 def create_node_list(input_filename):
 	file = open(input_filename, "r")
@@ -99,7 +99,7 @@ def initialPopulation(popSize, cityList):
 
 def rankPaths(population):
 	heuristic_results = {}
-	for i in range(0, len(population)):
+	for i in range(0,len(population)):
 		heur = Heuristic(population[i])
 		heuristic_results[i] = heur.pathHeuristic()
 	return sorted(heuristic_results.items(), key = operator.itemgetter(1), reverse = True)
@@ -109,7 +109,7 @@ def selection(popRanked, eliteSize):
 	dataframe = pandas.DataFrame(numpy.array(popRanked), columns=["Index","Heuristic"])
 	dataframe['cum_sum'] = dataframe.Heuristic.cumsum()
 	dataframe['cum_perc'] = 100*dataframe.cum_sum/dataframe.Heuristic.sum()
-	
+
 	for i in range(0, eliteSize):
 		selectionResults.append(popRanked[i][0])
 	for i in range(0, len(popRanked) - eliteSize):
@@ -132,16 +132,16 @@ def breed(parent1, parent2):
 	child = []
 	childP1 = []
 	childP2 = []
-	
+
 	geneA = int(random.random() * len(parent1))
 	geneB = int(random.random() * len(parent1))
-	
+
 	startGene = min(geneA, geneB)
 	endGene = max(geneA, geneB)
 
 	for i in range(startGene, endGene):
 		childP1.append(parent1[i])
-		
+
 	childP2 = [item for item in parent2 if item not in childP1]
 
 	child = childP1 + childP2
@@ -150,38 +150,33 @@ def breed(parent1, parent2):
 
 def breedPopulation(matingpool, eliteSize):
 	children = []
-	length = len(matingpool) - eliteSize
+	non_elite_children_length = len(matingpool) - eliteSize
 	pool = random.sample(matingpool, len(matingpool))
-
 	for i in range(0,eliteSize):
 		children.append(matingpool[i])
-	
-	for i in range(0, length):
-		child = breed(pool[i], pool[len(matingpool)-i-1])
+	for i in range(0, non_elite_children_length):
+		rand = random.random() * (matingPool + eliteSize)
+		child = breed(pool[i], pool[rand])
 		children.append(child)
 	return children
 
 
-
-def mutate(individual, mutationRate):
-	for swapped in range(len(individual)):
+def mutate(city, mutationRate):
+	for swapped in range(len(city)):
 		if(random.random() < mutationRate):
-			swapWith = int(random.random() * len(individual))
-			
-			city1 = individual[swapped]
-			city2 = individual[swapWith]
-			
-			individual[swapped] = city2
-			individual[swapWith] = city1
-	return individual
+			swapWith = int(random.random() * len(city))
+			city1 = city[swapped]
+			city2 = city[swapWith]
+			city[swapped] = city2
+			city[swapWith] = city1
+	return city
 
 
 def mutatePopulation(population, mutationRate):
-	mutatedPop = []
-	
+	mutated = []
 	for ind in range(0, len(population)):
 		mutatedInd = mutate(population[ind], mutationRate)
-		mutatedPop.append(mutatedInd)
+		mutated.append(mutatedInd)
 	return mutatedPop
 
 def nextGeneration(currentGen, eliteSize, mutationRate):
@@ -193,15 +188,13 @@ def nextGeneration(currentGen, eliteSize, mutationRate):
 	return nextGeneration
 
 
-def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
+def geneticAlgorithm(population, popSize, eliteSize, mutationRate, start_time, target):
 	pop = initialPopulation(popSize, population)
-	print("Initial distance: " + str(1 / rankPaths(pop)[0][1]))
 	initialDistance = 1 / rankPaths(pop)[0][1]
-	
-	for i in range(0, generations):
+
+	while((time.time() - start_time) < target):
 		pop = nextGeneration(pop, eliteSize, mutationRate)
-	
-	print("Final distance: " + str(1 / rankPaths(pop)[0][1]))
+
 	bestRouteIndex = rankPaths(pop)[0][0]
 	bestRoute = pop[bestRouteIndex]
 	finalDistance = 1 / rankPaths(pop)[0][1]
