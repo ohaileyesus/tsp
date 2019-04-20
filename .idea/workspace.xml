@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ec83162-8cb1-4734-8074-2652d22426e2" name="Default Changelist" comment="" />
+    <list default="true" id="9ec83162-8cb1-4734-8074-2652d22426e2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/genetic.py" beforeDir="false" afterPath="$PROJECT_DIR$/genetic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/geneticAlgo/genetic.py" beforeDir="false" afterPath="$PROJECT_DIR$/geneticAlgo/genetic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mat-test_out.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mat-test_out.txt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,39 +27,51 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="2" />
+          <entry key="py" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="2" />
+          <entry key="Python" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="137" />
-          <entry key="py" value="4763" />
+          <entry key="Python Console" value="191" />
+          <entry key="py" value="7645" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="4900" />
+          <entry key="Python" value="7836" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tsp-3510.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-615">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="340">
+              <caret line="23" column="16" selection-start-line="23" selection-end-line="24" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1555560124966" expanded="true" signature="70:71" ph="..." />
-                <marker date="1555560124966" expanded="true" signature="70:4502" ph="..." />
-                <marker date="1555560124966" expanded="true" signature="2066:2240" ph="..." />
+                <marker date="1555713383372" expanded="true" signature="4161:4169" ph="..." />
+                <marker date="1555713383372" expanded="true" signature="4161:4538" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/genetic.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="29" lean-forward="true" selection-end-line="204" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+                <marker date="1555726050117" expanded="true" signature="1887:1889" ph="..." />
               </folding>
             </state>
           </provider>
@@ -69,6 +86,21 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>breed</find>
+      <find>city</find>
+      <find>pathdistance</find>
+      <find>pathdistance(</find>
+      <find>pathheur</find>
+      <find>createPath</find>
+      <find>rankpaths</find>
+      <find>elitesize</find>
+      <find>initial_pop</find>
+      <find>path_distan</find>
+      <find>path_he</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -77,6 +109,8 @@
       <list>
         <option value="$PROJECT_DIR$/distchecker.py" />
         <option value="$PROJECT_DIR$/tsp-3510.py" />
+        <option value="$PROJECT_DIR$/geneticAlgo/genetic.py" />
+        <option value="$PROJECT_DIR$/genetic.py" />
       </list>
     </option>
   </component>
@@ -97,6 +131,11 @@
               <item name="tsp" type="b2602c69:ProjectViewProjectNode" />
               <item name="tsp" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="tsp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tsp" type="462c0819:PsiDirectoryNode" />
+              <item name="geneticAlgo" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -105,7 +144,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -135,7 +174,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.136716" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.070472166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -146,7 +185,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3192771" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32891566" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -159,15 +198,45 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/distchecker.py" />
+    <entry file="file:///anaconda/lib/python2.7/site-packages/pandas/core/generic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="3073" selection-start-line="3073" selection-end-line="3073" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geneticAlgo/Heuristic.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geneticAlgo/genetic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="101" column="14" lean-forward="true" selection-start-line="101" selection-start-column="14" selection-end-line="101" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tsp-3510.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-615">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="340">
+          <caret line="23" column="16" selection-start-line="23" selection-end-line="24" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1555560124966" expanded="true" signature="70:71" ph="..." />
-            <marker date="1555560124966" expanded="true" signature="70:4502" ph="..." />
-            <marker date="1555560124966" expanded="true" signature="2066:2240" ph="..." />
+            <marker date="1555713383372" expanded="true" signature="4161:4169" ph="..." />
+            <marker date="1555713383372" expanded="true" signature="4161:4538" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/genetic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="29" lean-forward="true" selection-end-line="204" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <marker date="1555726050117" expanded="true" signature="1887:1889" ph="..." />
           </folding>
         </state>
       </provider>

@@ -5,21 +5,24 @@ import operator
 import pandas
 import time
 
+
 class City:
-    def __init__(self, x, y) :
+    def __init__(self, x, y):
         self.x = x;
         self.y = y;
 
-    def calc_distance(self, city) :
+    def calc_distance(self, city):
         distancex = abs(self.x - city.x)
         distancey = abs(self.y - city.y)
         return numpy.sqrt((distancex ** 2) + (distancey **2))
 
+
 class Heuristic:
+
 	def __init__(self, path):
-		self.path = path;
-		self.distance = 0;
-		self.heuristic = 0.0;
+		self.path = path
+		self.distance = 0
+		self.heuristic = 0.0
 
 	def pathDistance(self):
 		if (self.distance == 0):
@@ -36,9 +39,10 @@ class Heuristic:
 		return self.path
 
 	def pathHeuristic(self):
-		if (self.heuristic == 0):
+		if self.heuristic == 0:
 			self.heuristic = 1 / float(self.pathDistance())
 		return self.heuristic
+
 
 def main():
 	input_filename = sys.argv[1]
@@ -59,14 +63,13 @@ def write_to_file(output_filename, bestroute, initial, final):
 	try:
 		fh = open(output_filename, 'r')
 		fh.write(str(bestroute) + '\n')
-		fh.write(str(initial) + '\n')
 		fh.write(str(final) + '\n')
 	except:
 		# if file does not exist, create it
 		fh = open(output_filename, 'w')
 		fh.write(str(bestroute) + '\n')
-		fh.write(str(initial) + '\n')
 		fh.write(str(final) + '\n')
+
 
 def create_node_list(input_filename):
 	file = open(input_filename, "r")
@@ -83,10 +86,12 @@ def create_node_list(input_filename):
 			nodes.append(node)
 	return nodes
 
+
 def createPath(cityList):
 	#creates a random path based on all cities
 	path = random.sample(cityList, len(cityList))
 	return path
+
 
 def initialPopulation(popSize, cityList):
 	#creates the 1st generation of routes
@@ -96,55 +101,58 @@ def initialPopulation(popSize, cityList):
 		pop.append(createPath(cityList))
 	return pop
 
+
 def rankPaths(population):
 	heuristic_results = {}
-	for i in range(0,len(population)):
-		heur = Heuristic(population[i])
-		heuristic_results[i] = heur.pathHeuristic()
-	return sorted(heuristic_results.items(), key = operator.itemgetter(1), reverse = True)
+	for i in range(len(population)):
+		heuristic_results[i] = Heuristic(population[i]).pathHeuristic()
+	return sorted(heuristic_results.items(), key=operator.itemgetter(1), reverse=True)
 
-def selection(popRanked, eliteSize):
-	selectionResults = []
-	dataframe = pandas.DataFrame(numpy.array(popRanked), columns=["Index","Heuristic"])
-	dataframe['cum_sum'] = dataframe.Heuristic.cumsum()
-	dataframe['cum_perc'] = 100*dataframe.cum_sum/dataframe.Heuristic.sum()
-	
-	for i in range(0, eliteSize):
-		selectionResults.append(popRanked[i][0])
-	for i in range(0, len(popRanked) - eliteSize):
-		pick = 100*random.random()
-		for i in range(0, len(popRanked)):
-			if pick <= dataframe.iat[i,3]:
-				selectionResults.append(popRanked[i][0])
+
+def selection(pop, top_n):
+	selected_paths = []
+
+	current_total_cost = 0
+	ids_to_selection_prob = {}
+	for path_id in range(len(pop)):
+		current_total_cost += pop[path_id][1]
+		ids_to_selection_prob[path_id] = pop[path_id][1]/current_total_cost
+
+	# top 20 paths auto pass
+	for i in range(top_n):
+		selected_paths += [pop[i][0]]
+
+	# 0 - 80
+	for j in range(len(pop) - top_n):
+		pick = random.random()
+
+		# 0 - 100
+		for i in range(len(pop)):
+			if pick <= ids_to_selection_prob[i]:
+				selected_paths += [pop[i][0]]
 				break
-	return selectionResults
+
+	return selected_paths
 
 
-def matingPool(population, selectionResults):
-	matingpool = []
-	for i in range(0, len(selectionResults)):
-		index = selectionResults[i]
-		matingpool.append(population[index])
-	return matingpool
+def matingPool(population, selected_paths):
+	pool = []
+	for i in range(len(selected_paths)):
+		pool += [population[selected_paths[i]]]
+	return pool
 
-def breed(parent1, parent2):
-	child = []
-	childP1 = []
-	childP2 = []
-	
-	geneA = int(random.random() * len(parent1))
-	geneB = int(random.random() * len(parent1))
-	
-	startGene = min(geneA, geneB)
-	endGene = max(geneA, geneB)
 
-	for i in range(startGene, endGene):
-		childP1.append(parent1[i])
-		
-	childP2 = [item for item in parent2 if item not in childP1]
+def crossover(parent1, parent2):
+	left_half_child = []
+	for i in range(random.randint(0, len(parent1)), random.randint(0, len(parent1))):
+		left_half_child += [parent1[i]]
 
-	child = childP1 + childP2
-	return child
+	right_half_child = []
+	for item in parent2:
+		if item not in left_half_child:
+			right_half_child += [item]
+
+	return left_half_child + right_half_child
 
 
 def breedPopulation(matingpool, eliteSize):
@@ -156,10 +164,9 @@ def breedPopulation(matingpool, eliteSize):
 		children.append(matingpool[i])
 	
 	for i in range(0, length):
-		child = breed(pool[i], pool[len(matingpool)-i-1])
+		child = crossover(pool[i], pool[len(matingpool)-i-1])
 		children.append(child)
 	return children
-
 
 
 def mutate(individual, mutationRate):
@@ -183,6 +190,7 @@ def mutatePopulation(population, mutationRate):
 		mutatedPop.append(mutatedInd)
 	return mutatedPop
 
+
 def nextGeneration(currentGen, eliteSize, mutationRate):
 	popRanked = rankPaths(currentGen)
 	selectionResults = selection(popRanked, eliteSize)
@@ -205,6 +213,7 @@ def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
 	bestRoute = pop[bestRouteIndex]
 	finalDistance = 1 / rankPaths(pop)[0][1]
 	return bestRoute, initialDistance, finalDistance
+
 
 if __name__ == "__main__":
 	main()
