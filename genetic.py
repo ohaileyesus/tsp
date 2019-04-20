@@ -79,7 +79,6 @@ def write_to_file(output_filename, bestroute, final):
 	# open file for reading
 	try:
 		fh = open(output_filename, 'r')
-		print(int(final))
 		fh.write(str(int(final)) + '\n')
 		bestroute += [bestroute[0]]
 		for node in bestroute:
