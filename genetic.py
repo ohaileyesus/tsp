@@ -107,8 +107,8 @@ def create_node_list(input_filename):
 			for elem in line.split(' '):
 				if '.' in elem:
 					elem = float(elem)
-				node.append(int(elem))
-			nodes.append(node)
+				node += [int(elem)]
+			nodes += [node]
 	return nodes
 
 
